@@ -1,0 +1,46 @@
+<!-- <form class="mat-typography"> -->
+<!--   <!-1- <label class="mat-display-4">Task Name</label> -1-> -->
+<!--   <label >Task Name</label> -->
+<!--   <input type="text" /> -->
+<!--   <!-1- <label class="mat-headline">Task Description</label> -1-> -->
+<!--   <label >Task Description</label> -->
+<!--   <input type="text" /> -->
+<!--   <button mat-raised-button color="primary">Send</button> -->
+<!--   <button mat-raised-button color="accent">Send</button> -->
+<!--   <button mat-raised-button color="warn">Send</button> -->
+<!--   <mat-button-toggle #toggleBtn checked>Toggle</mat-button-toggle> -->
+<!--   {{toggleBtn.checked}} -->
+<!-- </form> -->
+
+<div>
+
+  <mat-form-field [formGroup]="formInput">
+    <mat-label>Nome</mat-label>
+    <input type="text" matInput placeholder="Tarefa" required formControlName="name"/>
+    <mat-hint align="end">Min 5 caracteres</mat-hint>
+  </mat-form-field>
+  <!-- <div>{{formInput.name}}</div> -->
+
+  <mat-form-field [formGroup]="formInput">
+    <mat-label>Descricao</mat-label>
+    <input type="text" matInput  placeholder="Descricao" required formControlName="description"/>
+    <mat-hint align="end">Min 5 caracteres</mat-hint>
+  </mat-form-field>
+
+  <mat-form-field [formGroup]="formInput">
+    <mat-label>Enter a date range</mat-label>
+    <mat-date-range-input [rangePicker]="picker">
+      <input matStartDate placeholder="Start date" formControlName="date_inserted">
+      <input matEndDate placeholder="End date" formControlName="date_limit">
+    </mat-date-range-input>
+    <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>
+    <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-date-range-picker #picker></mat-date-range-picker>
+  </mat-form-field>
+
+  <div>{{formInput.value.name}}</div>
+
+  <button mat-raised-button color="primary" (click)="submit()" >Adicionar</button>
+
+</div>
+
