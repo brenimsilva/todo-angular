@@ -1,0 +1,40 @@
+# ASP.NET & Visual Studio
+.vscode/
+.vs/
+bin/
+obj/
+appsettings*.json
+*.suo
+*.user
+*.sln
+*.csproj.user
+*.suo
+*.cache
+*.log
+bin/
+obj/
+out/
+.idea/
+*.swp
+
+# User-specific files
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# NuGet packages
+## TODO: If you have NuGet Package Restore enabled, uncomment the next line
+# packages/
+
+# Windows image file caches
+Thumbs.db
+
+# Folder config file
+Desktop.ini
+
+# Recycle Bin used on file shares
+$RECYCLE.BIN/
+
+# Visual Studio 2019
+.vs2019/
