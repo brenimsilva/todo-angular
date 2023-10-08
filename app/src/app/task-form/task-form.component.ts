@@ -13,8 +13,7 @@ export class TaskFormComponent {
   formInput : FormGroup
 
   constructor(private fb: FormBuilder, private formDataService: TodoService) {
-    this.formInput = this.fb.group({name: "Test", description: "", date_inserted: null, date_limit: null})
-  }
+    this.formInput = this.fb.group({id: null, name: "", description: "", date_inserted: null, date_limit: null}) }
 
   submit() {
     const formData = this.formInput.value as Task;

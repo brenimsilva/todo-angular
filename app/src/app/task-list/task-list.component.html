@@ -9,7 +9,13 @@
 <!--   </tr> -->
 <!-- </table> -->
 
-<table mat-table [dataSource] = "taskList" class="mat-elevation-z8">
+<table mat-table [dataSource] = "taskList" class="mat-elevation-z8 demo-table">
+
+  <ng-container matColumnDef="id">
+    <th mat-header-cell *matHeaderCellDef> Id </th>
+    <td mat-cell *matCellDef="let task">{{task.id}}</td>
+  </ng-container>
+
   <ng-container matColumnDef="nome">
     <th mat-header-cell *matHeaderCellDef> nome </th>
     <td mat-cell *matCellDef="let task">{{task.name}}</td>
@@ -20,8 +26,22 @@
     <td mat-cell *matCellDef="let task">{{task.description}}</td>
   </ng-container>
 
+  <ng-container matColumnDef="date_inserted">
+    <th mat-header-cell *matHeaderCellDef> Insercao </th>
+    <td mat-cell *matCellDef="let task">{{task.date_inserted}}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="date_limit">
+    <th mat-header-cell *matHeaderCellDef> Data limite </th>
+    <td mat-cell *matCellDef="let task">{{task.date_limit}}</td>
+  </ng-container>
+
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  <tr
+    mat-row
+    (click)="editModal(row)"
+    *matRowDef="let row; columns: displayedColumns;
+    "></tr>
 
 </table>
 

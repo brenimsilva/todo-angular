@@ -1,0 +1,27 @@
+<h1 mat-dialog-title>{{data.name}}</h1>
+<div mat-dialog-content class="dialog-content">
+
+  <mat-form-field [formGroup]="formInput">
+    <mat-label>Nome</mat-label>
+    <input matInput formControlName="name" />
+    <mat-hint>min 3 caracteres</mat-hint>
+  </mat-form-field>
+
+  <mat-form-field class="description-container" [formGroup]="formInput">
+    <mat-label>Descricao</mat-label>
+    <textarea matInput formControlName="description"></textarea>
+  </mat-form-field>
+
+  <mat-form-field class="form-date" [formGroup]="formInput">
+    <mat-label>Enter a date range</mat-label>
+    <mat-date-range-input [rangePicker]="picker">
+      <input matStartDate placeholder="Start date" formControlName="date_inserted">
+      <input matEndDate placeholder="End date" formControlName="date_limit">
+    </mat-date-range-input>
+    <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>
+    <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-date-range-picker #picker></mat-date-range-picker>
+  </mat-form-field>
+
+  <button mat-raised-button class="btn-submit" color="primary" (click)="modalEdit(data)">Submit</button>
+</div>

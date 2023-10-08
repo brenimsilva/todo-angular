@@ -1,6 +1,8 @@
 import { Component, OnInit} from '@angular/core';
 import { Task } from '../models/task';
 import { TodoService } from '../services/todo.service';
+import { MatDialog } from '@angular/material/dialog';
+import { TaskEditModalComponent } from '../task-edit-modal/task-edit-modal.component';
 
 @Component({
   selector: 'task-list',
@@ -10,7 +12,7 @@ import { TodoService } from '../services/todo.service';
 
 export class TaskListComponent implements OnInit {
   taskList: Task[] = [];
-  constructor(private formDataService: TodoService){}
+  constructor(private formDataService: TodoService, private dialog: MatDialog){}
 
   ngOnInit() {
     this.formDataService.taskList$.subscribe((data) => {
@@ -18,5 +20,10 @@ export class TaskListComponent implements OnInit {
 
     })
   }
-  displayedColumns: string[] = ['nome', 'descricao'];
+
+  editModal(row: Task) {
+    const dialogRef = this.dialog.open(TaskEditModalComponent, {data: row});
+  }
+
+  displayedColumns: string[] = ['id','nome', 'descricao', 'date_limit', 'date_inserted'];
 }

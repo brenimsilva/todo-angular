@@ -10,6 +10,7 @@ import { MaterialModule } from './material/material.module';
 import { TaskListComponent } from './task-list/task-list.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
+import { TaskEditModalComponent } from './task-edit-modal/task-edit-modal.component';
 
 @NgModule({
   declarations: [
@@ -17,6 +18,7 @@ import { FormsModule } from '@angular/forms';
     ContainerComponent,
     TaskFormComponent,
     TaskListComponent,
+    TaskEditModalComponent,
   ],
   imports: [
     BrowserModule,
@@ -24,7 +26,7 @@ import { FormsModule } from '@angular/forms';
     BrowserAnimationsModule,
     MaterialModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

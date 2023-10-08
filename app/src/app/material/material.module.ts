@@ -7,7 +7,7 @@ import {MatTableModule} from '@angular/material/table'
 import {MatDatepickerModule} from "@angular/material/datepicker"
 import {MatNativeDateModule} from '@angular/material/core';
 import {MatFormFieldModule} from '@angular/material/form-field';
-
+import {MatDialogModule} from "@angular/material/dialog"
 const MaterialComponents = [
   MatButtonModule,
   MatInputModule,
@@ -16,7 +16,8 @@ const MaterialComponents = [
   MatTableModule,
   MatDatepickerModule,
   MatNativeDateModule,
-  MatFormFieldModule
+  MatFormFieldModule,
+  MatDialogModule
 ]
 
 @NgModule({
