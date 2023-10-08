@@ -16,14 +16,14 @@
 
   <mat-form-field [formGroup]="formInput">
     <mat-label>Nome</mat-label>
-    <input type="text" matInput placeholder="Tarefa" required formControlName="name"/>
+    <input type="text" matInput placeholder="Tarefa" required formControlName="taskTitle"/>
     <mat-hint align="end">Min 5 caracteres</mat-hint>
   </mat-form-field>
   <!-- <div>{{formInput.name}}</div> -->
 
   <mat-form-field [formGroup]="formInput">
     <mat-label>Descricao</mat-label>
-    <input type="text" matInput  placeholder="Descricao" required formControlName="description"/>
+    <input type="text" matInput  placeholder="Descricao" required formControlName="taskDescription"/>
     <mat-hint align="end">Min 5 caracteres</mat-hint>
   </mat-form-field>
 

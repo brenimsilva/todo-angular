@@ -11,12 +11,16 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 })
 export class TaskEditModalComponent {
   formInput : FormGroup
+
   constructor(private fb: FormBuilder, private service: TodoService, private dialogRef: MatDialogRef<TaskEditModalComponent>,
     @Inject(MAT_DIALOG_DATA) public data: Task){
-    this.formInput = this.fb.group({id: null, name: "", description: "", date_inserted: null, date_limit: null}) }
+    this.formInput = this.fb.group({taskId: data.taskId, taskTitle: data.taskTitle,
+      taskDescription: data.taskDescription, date_inserted: data.date_inserted, date_limit: data.date_limit}) }
 
   modalEdit(t: Task){
     const formData = this.formInput.value as Task;
-    this.service.onEditTask(t.id, formData);
+    this.service.onEditTask(t.taskId, formData).subscribe((response) => {
+      this.service.onUpdateList();
+    });
   }
  }

@@ -11,6 +11,7 @@ import { TaskListComponent } from './task-list/task-list.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
 import { TaskEditModalComponent } from './task-edit-modal/task-edit-modal.component';
+import {HttpClientModule} from "@angular/common/http"
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import { TaskEditModalComponent } from './task-edit-modal/task-edit-modal.compon
     MaterialModule,
     ReactiveFormsModule,
     FormsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

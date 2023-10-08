@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace todoapp.Models;
 
@@ -7,6 +8,7 @@ public class TodoTask
     [Key] public int TaskId { get; set; }
     [StringLength(120)] public string TaskTitle { get; set; }
     [StringLength(255)] public string TaskDescription { get; set; }
-    public DateTime created_at { get; set; }
-    public DateTime updated_at { get; set; }
+    [ForeignKey("User")] public int UserId { get; set; }
+    [DataType(DataType.DateTime)]public DateTime date_inserted { get; set; }
+    [DataType(DataType.DateTime)] public DateTime date_limit { get; set; }
 }

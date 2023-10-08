@@ -15,9 +15,28 @@ public class TaskController : ControllerBase
    }
 
    [HttpPost]
-   public async Task<IActionResult> AddNew(TodoTask task)
+   public async Task<IActionResult> AddNew([FromBody]TodoTask task)
    {
-       var x = await _ctx.TaskSet.AddAsync(task);
-       return Created("/Task", x);
+       await _ctx.TaskSet.AddAsync(task);
+       await _ctx.SaveChangesAsync();
+       return Ok(task);
+   }
+
+   [HttpPut("{id}")]
+   public async Task<IActionResult> Edit(int id, [FromBody]TodoTask task) {
+        TodoTask t = await _ctx.TaskSet.FindAsync(id);
+        if(t is not null)
+        {
+            t.TaskTitle = task.TaskTitle;
+            t.TaskDescription = task.TaskDescription;
+            t.date_inserted = task.date_inserted;
+            t.date_limit = task.date_limit;
+            _ctx.TaskSet.Update(t);
+            await _ctx.SaveChangesAsync();
+            return Ok(t);
+        } else
+        {
+            return BadRequest();
+        }
    }
 }

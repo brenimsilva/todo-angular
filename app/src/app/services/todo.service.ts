@@ -1,34 +1,44 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
+import {map} from 'rxjs/operators';
 import { Task } from '../models/task';
+import {HttpClient} from '@angular/common/http'
+import { User } from '../models/user';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class TodoService {
+  private apiUrl = 'https://localhost:7060'
   private taskList = new BehaviorSubject<Task[]>([
-    new Task(1,"Estudar Angular", "Framework Chatao", new Date(), new Date()),
-    new Task(2,"Estudar Service-Workers", "Trem de olhar offline", new Date(), new Date()),
-    new Task(3,"Estudar Modules e Standalone", "Diferenca entre esses dois mlks", new Date(), new Date())
   ]);
   taskList$: Observable<Task[]> = this.taskList.asObservable();
-  constructor() { }
+  constructor(private http: HttpClient) {
+    this.onUpdateList()
+  }
 
-  onNewTask(t: Task) {
-    const nextId: number = this.taskList.value.length +1
-    const newList = [...this.taskList.value, {...t, id: nextId}]
-    this.taskList.next(newList);
+  onUpdateList() {
+    this.getTaskList(1).subscribe((data) => {
+      this.taskList.next(data.taskList);
+    }, (err) => {
+        console.error(err);
+      });
+  }
+
+  onNewTask(t: Task) : Observable<Task> {
+    t.taskId = 0;
+    t.userId = 1;
+    return this.http.post<Task>(`${this.apiUrl}/Task`, t);
+  }
+
+  getTaskList(userId: Number): Observable<User> {
+    const user = this.http.get<User>(`${this.apiUrl}/User/${userId}`);
+    return user;
   }
 
   onEditTask(id: number, taskUpdated: Task) {
-    console.log(taskUpdated)
-    const taskIndex = this.taskList.value.findIndex(x => x.id == id);
-    if(taskIndex !== -1) {
-      const updatedTaskList = [...this.taskList.value];
-
-      updatedTaskList[taskIndex] = taskUpdated;
-      this.taskList.next(updatedTaskList);
-    }
+      return this.http.put(`${this.apiUrl}/Task/${id}`, taskUpdated);
   }
 
 }
