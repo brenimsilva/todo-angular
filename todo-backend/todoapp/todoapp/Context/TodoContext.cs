@@ -11,5 +11,4 @@ public class TodoContext : DbContext
    }
    
    public DbSet<TodoTask> TaskSet { get; set; }
-   public DbSet<User> UserSet { get; set; }
 }

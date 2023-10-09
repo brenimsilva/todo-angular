@@ -11,6 +11,11 @@
   padding: 10px;
 }
 
+.btn-submit {
+  height: 100%;
+  padding: 10px;
+}
+
 .form-date {
   width: 100%;
 }

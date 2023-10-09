@@ -22,5 +22,15 @@ export class TaskEditModalComponent {
     this.service.onEditTask(t.taskId, formData).subscribe((response) => {
       this.service.onUpdateList();
     });
+    this.dialogRef.close();
   }
+
+  modalDelete() {
+    const id = this.formInput.value.taskId;
+    this.service.onDeleteTask(id).subscribe(() => {
+      this.service.onUpdateList();
+    })
+    this.dialogRef.close();
+  }
+
  }
