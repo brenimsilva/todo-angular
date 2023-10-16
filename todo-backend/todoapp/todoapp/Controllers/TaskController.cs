@@ -18,7 +18,7 @@ public class TaskController : ControllerBase
     [HttpGet("{guid}")]
     public async Task<IActionResult> GetAllTasks(Guid guid)
     {
-        var taskList =  await _ctx.TaskSet.Where(e => e.UserGuid == guid).ToListAsync();
+        var taskList =  _ctx.TaskSet.Where(e => e.UserGuid == guid).ToList();
         if (taskList is not null)
         {
             return Ok(taskList);

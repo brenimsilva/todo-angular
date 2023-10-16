@@ -1,42 +1,37 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, of } from 'rxjs';
+import {  BehaviorSubject, Observable } from 'rxjs';
 import { Task } from '../models/task';
 import {HttpClient} from '@angular/common/http'
-import { User } from '../models/user';
 import { environment } from '../environment';
-import {  Route, Router, UrlSegment, UrlTree } from '@angular/router';
+import { Router} from '@angular/router';
+import { AuthService } from './auth.service';
 
 
 @Injectable({
   providedIn: 'root'
 })
-export class TodoService  {
+export class TodoService {
   private taskList = new BehaviorSubject<Task[]>([
   ]);
   taskList$: Observable<Task[]> = this.taskList.asObservable();
 
-  private user = new BehaviorSubject<User>({} as User);
-  user$: Observable<User> = this.user.asObservable();
+  public handleError: any;
 
-
-  constructor(private http: HttpClient, private router: Router) {
-    this.onUpdateList()
+  constructor(private http: HttpClient, private router: Router, private _authService: AuthService) {
   }
 
-  getUser$() {
-    return this.user$;
-  }
-
-  setUser$(user: User) {
-    this.user.next(user);
-  }
 
   onUpdateList() {
-    // this.getTaskList("GUID").subscribe((data) => {
-    //   this.taskList.next(data);
-    // }, (err) => {
-    //     console.error(err);
-    //   });
+    this._authService.user.subscribe(u => {
+      if(!u) {
+        return;
+      }
+      this.getTaskList(u.userGuid).subscribe((data) => {
+        this.taskList.next(data);
+      }, (err) => {
+          console.error(err);
+        });
+    })
   }
 
   getTaskList(userGuid: string): Observable<Task[]> {
@@ -52,36 +47,15 @@ export class TodoService  {
   }
 
   onNewTask(t: Task) : Observable<Task> {
+    let res = new Observable<Task>();
+    this._authService.user.subscribe(u => {
+      if(!u) return;
     t.taskId = 0;
-    t.userId = 1;
-    return this.http.post<Task>(`${environment.TODO_API_URL}/Task`, t);
+    t.userGuid =  u.userGuid;
+      res = this.http.post<Task>(`${environment.TODO_API_URL}/Task`, t);
+    })
+    return res
   }
 
-  onLoginByToken(t: string): Observable<User> {
-    const form = new FormData();
-    form.set("token", t);
-    return this.http.post<User>(`${environment.AUTH_API_URL}/Auth/LoginByToken`, form);
-  }
-
-  // canActivate() {
-  //   //   const token = localStorage.getItem("token");
-  //   //   if(!token) {
-  //   //     this.router.navigateByUrl("/auth");
-  //   //     return of(false)
-  //   //   }
-  //   //   this.onLoginByToken(token).subscribe((s) => {
-  //   //     this.setUser$(s);
-  //   //     console.log(s);
-  //   //     localStorage.setItem("token", s.userToken);
-  //   //     return of(true);
-  //   //   }, (e) => {
-  //   //       this.router.navigateByUrl("/auth");
-  //   //       return of(false)
-  //   //     });
-  //   // return of(false);
-  //   if(localStorage.getItem('token')) {
-  //     return true;
-  //   }
-  // }
 
 }

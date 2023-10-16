@@ -13,7 +13,7 @@ import { FormsModule } from '@angular/forms';
 import { TaskEditModalComponent } from './task-edit-modal/task-edit-modal.component';
 import {HttpClientModule} from "@angular/common/http";
 import { HomeComponent } from './home/home.component';
-import { LoginComponent } from './login/login.component';
+import { AuthComponent } from './auth/auth.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +23,7 @@ import { LoginComponent } from './login/login.component';
     TaskListComponent,
     TaskEditModalComponent,
     HomeComponent,
-    LoginComponent,
+    AuthComponent,
   ],
   imports: [
     BrowserModule,
